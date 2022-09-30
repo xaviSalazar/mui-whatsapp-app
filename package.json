@@ -1,7 +1,7 @@
 {
   "name": "testing",
   "version": "0.1.0",
-  "homepage": "https://xavisalazar.github.io/mui-whatsapp-app",
+  "homepage": "https://xaviSalazar.github.io/mui-whatsapp-app",
   "private": true,
   "dependencies": {
     "@emotion/react": "^11.10.4",
