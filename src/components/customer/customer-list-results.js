@@ -19,12 +19,12 @@ import { getInitials } from '../../utils/get-initials';
 
 export const CustomerListResults = ({ customers, ...rest }) => {
   const [selectedCustomerIds, setSelectedCustomerIds] = useState([]);
-  const [limit, setLimit] = useState(10);
+  const [limit, setLimit] = useState(5);
   const [page, setPage] = useState(0);
 
+  // Select all customers
   const handleSelectAll = (event) => {
     let newSelectedCustomerIds;
-
     if (event.target.checked) {
       newSelectedCustomerIds = customers.map((customer) => customer.id);
     } else {
@@ -34,6 +34,7 @@ export const CustomerListResults = ({ customers, ...rest }) => {
     setSelectedCustomerIds(newSelectedCustomerIds);
   };
 
+  // handle select single customer
   const handleSelectOne = (event, id) => {
     const selectedIndex = selectedCustomerIds.indexOf(id);
     let newSelectedCustomerIds = [];
@@ -61,6 +62,7 @@ export const CustomerListResults = ({ customers, ...rest }) => {
   const handlePageChange = (event, newPage) => {
     setPage(newPage);
   };
+
 
   return (
     <Card {...rest}>
@@ -98,7 +100,7 @@ export const CustomerListResults = ({ customers, ...rest }) => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {customers.slice(0, limit).map((customer) => (
+              {customers.slice(page*limit, limit*(page+1)).map((customer) => (
                 <TableRow
                   hover
                   key={customer.id}
@@ -150,6 +152,7 @@ export const CustomerListResults = ({ customers, ...rest }) => {
           </Table>
         </Box>
       </PerfectScrollbar>
+
       <TablePagination
         component="div"
         count={customers.length}

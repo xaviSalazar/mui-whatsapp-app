@@ -5,13 +5,41 @@ import {
     CardContent,
     TextField,
     InputAdornment,
-    SvgIcon, Typography
+    SvgIcon, Typography, formControlClasses
   } from '@mui/material';
   import { Search as SearchIcon } from '../../icons/search';
   import { Upload as UploadIcon } from '../../icons/upload';
   import { Download as DownloadIcon } from '../../icons/download';
+  import { useState } from 'react';
+  import AddContact from './customer-add-form'
   
-  export const CustomerListToolbar = (props) => (
+   const CustomerListToolbar = (props) => {
+
+    const [contactToggle, setContactToggle] = useState(false);
+    const [addFormData, setAddFormData] = useState({
+      Asunto: "",
+      Apellidos: "",
+      Nombres: "",
+      'Lugar de Trabajo': "",
+      Email: "",
+      Celular: "",
+      Direccion: "",
+      Notas: "",
+    });
+
+    const handleAddFormChange = (event) => {
+
+      event.preventDefault();    
+      const fieldName = event.target.name
+      const fieldValue = event.target.value;
+  
+      const newFormData = { ...addFormData };
+      newFormData[fieldName] = fieldValue;
+  
+      setAddFormData(newFormData);
+    };
+
+    return (
     <Box {...props}>
       <Box
         sx={{
@@ -26,28 +54,31 @@ import {
           sx={{ m: 1 }}
           variant="h4"
         >
-          Customers
+          Clientes
         </Typography>
         <Box sx={{ m: 1 }}>
           <Button
             startIcon={(<UploadIcon fontSize="small" />)}
             sx={{ mr: 1 }}
           >
-            Import
+            Importar Excel
           </Button>
           <Button
             startIcon={(<DownloadIcon fontSize="small" />)}
             sx={{ mr: 1 }}
           >
-            Export
+            Exportar Excel
           </Button>
           <Button
             color="primary"
             variant="contained"
+            onClick = { () => setContactToggle(!contactToggle)}
           >
-            Add Customers
+            Agregar Contacto
           </Button>
+          <AddContact handleAddFormChange={handleAddFormChange} setContactToggle = {setContactToggle} contactToggle = {contactToggle} />
         </Box>
+
       </Box>
       <Box sx={{ mt: 3 }}>
         <Card>
@@ -75,5 +106,8 @@ import {
         </Card>
       </Box>
     </Box>
-  );
+    )
+  };
+
+  export default CustomerListToolbar
   

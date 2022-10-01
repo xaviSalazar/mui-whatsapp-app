@@ -134,7 +134,7 @@ socket.on("session", ({sessionID, userID}) => {
 function DashboardContent() {
 
   const [open, setOpen] = React.useState(true);
-  const [activeWindow, setActiveWindow] = useState("")
+  const [activeWindow, setActiveWindow] = useState("Dashboard")
   const dispatch = useDispatch()
   let auth = useSelector(state => state.customerReducer.auth)
   let configsTokens = useSelector(state => state.configTokenReducer)
@@ -254,7 +254,7 @@ useEffect( () => {
               justifyContent: 'flex-end',
               px: [1],
             }}
-          >Save
+          >Minimizar
             <IconButton onClick={toggleDrawer}>
               <ChevronLeftIcon />
             </IconButton>
