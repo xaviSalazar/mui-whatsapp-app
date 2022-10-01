@@ -24,7 +24,7 @@ const style = {
     pb: 3,
   };
 
-export default function AddContact({setContactToggle, contactToggle, handleOnChangeNumber, handleAddFormSubmit, handleAddFormChange}) {
+export default function AddContact({setContactToggle, contactToggle, handleAddFormSubmit, handleAddFormChange}) {
 
   return (
     // <React.Fragment>

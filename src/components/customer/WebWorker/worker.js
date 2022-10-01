@@ -1,7 +1,7 @@
 
 export default () => {
 
-  self.addEventListener("message", e => {
+  self.addEventListener("message", e => {  /* eslint-disable-line no-restricted-globals */
 
     let { data } = e;
     //console.log(data)
@@ -29,6 +29,8 @@ export default () => {
         // .then(data => this.setState({ postId: data.id }));
     }
     data.forEach(saveContactFunction);
+
+    postMessage('task_terminated')
     // whole data is coming
     // httpManager.createUser()
 

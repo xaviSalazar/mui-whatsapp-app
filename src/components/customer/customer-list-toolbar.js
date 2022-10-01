@@ -10,12 +10,17 @@ import {
   import { Search as SearchIcon } from '../../icons/search';
   import { Upload as UploadIcon } from '../../icons/upload';
   import { Download as DownloadIcon } from '../../icons/download';
-  import { useState } from 'react';
+  import React, { useState } from 'react';
   import AddContact from './customer-add-form'
+  import { useSelector } from "react-redux";
+  import {createUser } from '../../api'
+  import { ImportCSV } from './importCSV';
   
    const CustomerListToolbar = (props) => {
 
     const [contactToggle, setContactToggle] = useState(false);
+    const hiddenFileInput = React.useRef(null);
+    let auth = useSelector(state => state.customerReducer.auth)
     const [addFormData, setAddFormData] = useState({
       Asunto: "",
       Apellidos: "",
@@ -32,17 +37,39 @@ import {
       if(event.target) {
       const fieldName = event.target.name
       const fieldValue = event.target.value;
-  
       const newFormData = { ...addFormData };
       newFormData[fieldName] = fieldValue;
-  
-      console.log(newFormData)
       setAddFormData(newFormData);
       } else {
         const newFormData = { ...addFormData };
-        newFormData['Celular'] = event;
+        const firstFilter = event.replace('+','')
+        const newoutput = firstFilter.replace(/ /g , '')
+        newFormData['Celular'] = newoutput;
         setAddFormData(newFormData);
       }
+    };
+
+    const handleAddFormSubmit = async (event) => {
+    
+      const sendDatabase = {
+        'asunto': addFormData.Asunto,
+        'lastname': addFormData.Apellidos,
+        'name': addFormData.Nombres,
+        'workplace': addFormData['Lugar de Trabajo'],
+        'email': addFormData.Email,
+        'phoneNumber': addFormData.Celular,
+        'address': addFormData.Direccion,
+        'notes': addFormData.Notas,
+        'owner': auth?.data?.responseData?._id,
+        }
+
+      await createUser(sendDatabase);
+      
+      setContactToggle(false);
+    };
+
+    const handleClick = event => {
+      hiddenFileInput.current.click();
     };
 
     return (
@@ -66,8 +93,10 @@ import {
           <Button
             startIcon={(<UploadIcon fontSize="small" />)}
             sx={{ mr: 1 }}
+            onClick = {handleClick}
           >
             Importar Excel
+            <ImportCSV hiddenFileInput = {hiddenFileInput} />
           </Button>
           <Button
             startIcon={(<DownloadIcon fontSize="small" />)}
@@ -82,7 +111,7 @@ import {
           >
             Agregar Contacto
           </Button>
-          <AddContact handleAddFormChange={handleAddFormChange} setContactToggle = {setContactToggle} contactToggle = {contactToggle} />
+          <AddContact handleAddFormSubmit = {handleAddFormSubmit} handleAddFormChange={handleAddFormChange} setContactToggle = {setContactToggle} contactToggle = {contactToggle} />
         </Box>
 
       </Box>
