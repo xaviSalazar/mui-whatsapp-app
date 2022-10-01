@@ -26,13 +26,31 @@ const SidebarChat = (props) => {
     const dispatch = useDispatch();
     // const userMessages  = useSelector((state) => state.getMessagesFromChannel);
     const newMessages = useSelector((state) => state.newIncomingMessage)
-    const { userData, setChat, idColumn, setSelectedActive, selectedActive} = props;
+    const { userData, setChat, idColumn, setSelectedActive, selectedActive, socket} = props;
     const [unreadMsg, setUnreadMsg] = useState(userData.count)
+    const [lastMessage, setLastMessage] = useState()
     //console.log(`rendering SidebarChat ${userData.name}`)
 
     // useEffect( () => {
     //     dispatch(getMessagesFromChannel(userData._id))
     // }, [])
+
+
+    useEffect(() => {
+
+        const eventListener1 = ({ messages }) => { 
+            if(userData.phoneNumber === messages.from) {
+                console.log('NEW-MESSAGE')
+                setLastMessage(messages.message)
+            }
+        };
+        socket.on('user_answered', eventListener1);
+        
+        return () => {
+            socket.off('user_answered') 
+        }
+
+    },[socket])
 
     const setMessageAndChat = async () => {
 
@@ -55,10 +73,10 @@ const SidebarChat = (props) => {
     //     filterMessages(newMessages, setShowInfo, userData, setArray, array)
     // }, [newMessages, userData])
 
-    useEffect(() => {
-        console.log(`new_msg`)
-        filterMessages(newMessages, userData, setUnreadMsg)
-    }, [newMessages, userData, dispatch])
+
+        // console.log(`new_msg`)
+        // filterMessages(newMessages, userData, setUnreadMsg)
+    // }, [newMessages, userData, dispatch])
 
 
     return (
@@ -70,6 +88,10 @@ const SidebarChat = (props) => {
                 
                     <p>
                     <MessageOutlinedIcon/> {unreadMsg}
+                    </p>
+
+                    <p>
+                    {lastMessage}
                     </p>
                 
                 {/* <p> { showInfo.lastMessage } {(array.length === 0) || (array.length === 1) ? null : <><MessageOutlined/> {array.length} </>} </p>

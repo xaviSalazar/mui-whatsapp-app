@@ -11,7 +11,7 @@ import SidebarChat from './SidebarChat/SidebarChat'
 import { useSelector } from "react-redux";
 // import { searchOneUser } from '../../redux/GetUsers/UsersAction'
 import { useDispatch } from 'react-redux';
-// import { getUsers } from '../../redux/GetUsers/UsersAction';
+import { getUsers } from '../../redux/GetUsers/UsersAction';
 import Box from '@mui/material/Box';
 
 import Input from '@mui/material/Input';
@@ -25,30 +25,30 @@ const Sidebar = (props) => {
     const [selectedActive, setSelectedActive] = useState([])
     // use selectors
     const contactList  = useSelector((state) => state.getUsers);
-    // let auth = useSelector(state => state.customerReducer.auth)
+    let auth = useSelector(state => state.customerReducer.auth)
     //console.log("rendering")
 
-    // useEffect(() => {
+    useEffect(() => {
 
-    //     const eventListener2 = ({ messages }) => {
-    //         //console.log("new user contact");  
-    //         // dispatch(getUsers(auth?.data?.responseData?._id))
-    //     };
-    //     socket.on('new_user_contact', eventListener2);
+        const eventListener2 = ({ messages }) => {
+            //console.log("new user contact");  
+            dispatch(getUsers(auth?.data?.responseData?._id))
+        };
+        socket.on('new_user_contact', eventListener2);
 
-    //     const eventListener1 = ({ messages }) => {
-    //         //console.log("new user contact");  
-    //         // dispatch(getUsers(auth?.data?.responseData?._id))
-    //     };
-    //     socket.on('user_answered', eventListener1);
+        const eventListener1 = ({ messages }) => {
+            //console.log("new user contact");  
+            dispatch(getUsers(auth?.data?.responseData?._id))
+        };
+        socket.on('user_answered', eventListener1);
 
 
-    //     return () => {
-    //         socket.off('new_user_contact') 
-    //         socket.off('user_answered') 
-    //     }
+        return () => {
+            socket.off('new_user_contact') 
+            socket.off('user_answered') 
+        }
 
-    // }, [socket, dispatch, auth?.data?.responseData?._id])
+    }, [socket, dispatch])
 
     const onSearchTextChanged = async (searchText) => {
         setSearchString(searchText);
@@ -109,6 +109,7 @@ const Sidebar = (props) => {
                             setChat = {props.setChat}
                             setSelectedActive = {setSelectedActive}
                             selectedActive ={selectedActive}
+                            socket = {props.socket}
                         />
                     ))
                 }
