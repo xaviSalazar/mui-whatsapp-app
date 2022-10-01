@@ -205,25 +205,13 @@ function DashboardContent() {
         </Drawer>
         
         {/* Donde va el componente */}
-        <Box
-          component="main"
-          sx={{
-            backgroundColor: (theme) =>
-              theme.palette.mode === 'light'
-                ? theme.palette.grey[100]
-                : theme.palette.grey[900],
-            flexGrow: 1,
-            height: '100vh',
-            overflow: 'auto',
-          }}
-        >
-          <Toolbar />
+        
 
         {/* PAGES I WANT TO CHOOSE GOES HERE */}
           {activeWindow === "Dashboard" && <Summary />}
           {activeWindow === "Messaging-page" && <MessagingPage socket={socket}/>}
 
-        </Box>
+        
       </Box>
     </ThemeProvider>
   );

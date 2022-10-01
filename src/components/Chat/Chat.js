@@ -18,6 +18,7 @@ import { useSelector } from "react-redux";
 import { useDispatch } from 'react-redux';
 // import { newIncomingMessage } from '../../redux/NewMessages/Actions'
 import { getMessagesFromChannel } from '../../redux/GetMessages/Actions'
+import Box from '@mui/material/Box';
 //import FileUploadPage from '../FileUploadPage/FileUploadPage'
 var testeo = true;
 
@@ -246,7 +247,15 @@ const Chat = (props) => {
 
     return (
         !selectedChat ? <div></div>:
-        <div className='chat'>
+        
+<Box
+        component="main"
+        display = "flex"
+        flexDirection={"column"}
+        minHeight={900}
+        maxHeight={900}
+        >
+       
             <div className='chat__header'>
                 <Avatar />
                 <div className='chat__headerInfo'>
@@ -297,7 +306,7 @@ const Chat = (props) => {
                 </form>
                 <MicIcon/>
             </div>
-        </div>     
+            </Box>   
     )
 }
 

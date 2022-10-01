@@ -12,6 +12,9 @@ import { useSelector } from "react-redux";
 // import { searchOneUser } from '../../redux/GetUsers/UsersAction'
 import { useDispatch } from 'react-redux';
 // import { getUsers } from '../../redux/GetUsers/UsersAction';
+import Box from '@mui/material/Box';
+
+import Input from '@mui/material/Input';
 
 const Sidebar = (props) => {
   
@@ -57,7 +60,13 @@ const Sidebar = (props) => {
   
 
     return (
-        <div className="sidebar">
+        <Box
+        component="main"
+        display = "flex"
+        flexDirection={"column"}
+        minHeight={900}
+        maxHeight={900}
+        >
             <div className="sidebar__header">
                 {/* <Avatar >{auth?.data?.responseData?.firstName.charAt(0) + auth?.data?.responseData?.lastName.charAt(0)}</Avatar> */}
                <div className="sidebar__headerRight">
@@ -72,17 +81,23 @@ const Sidebar = (props) => {
                     </IconButton>
                 </div>
             </div>
-            <div className="sidebar__search">
+
+                <Box
+                display = "flex"
+                >
                 <div className="sidebar_searchContainer">
                     <SearchOutlinedIcon />
-                    <input 
-                        placeholder="Search or start new chat" 
-                        type="text" 
-                        value = {searchString}
-                        onChange={(e) => onSearchTextChanged(e.target.value)}
+                    <Input
+                     placeholder="Search or start new chat" 
+                     type="text" 
+                     value = {searchString}
+                     onChange={(e) => onSearchTextChanged(e.target.value)}
+
                     />
+                 
                 </div>
-            </div>
+                </Box>
+
             <div className="sidebar__chats">
                 {
                     
@@ -98,7 +113,8 @@ const Sidebar = (props) => {
                     ))
                 }
             </div>
-        </div>
+
+            </Box>
     )
 }
 

@@ -6,6 +6,7 @@ import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 // import { getUsers } from '../redux/GetUsers/UsersAction';
 import { getUsers } from '../redux/GetUsers/UsersAction'
+import Box from '@mui/material/Box';
 
 const MessagingPage = ({socket}) => {
 
@@ -19,20 +20,27 @@ const MessagingPage = ({socket}) => {
         }, [dispatch, auth])      
   
 return (
-    <Container maxWidth="lg" sx={{ mt: 4, mb: 4}}>
-        <Grid container max-height="50%" spacing={3}>
-
+  <Box
+        sx={{
+          backgroundColor: (theme) =>
+            theme.palette.mode === 'light'
+              ? theme.palette.grey[100]
+              : theme.palette.grey[900],
+          width: 1,
+        }}
+      >
+    {/* <Container maxWidth="lg" sx={{ mt: 4, mb: 4}}> */}
+        <Grid container spacing={3} sx={{ mt: 4, mb: 4}}>
           <Grid item xs={4}>
             <Sidebar setChat = {setChat} socket = {socket} />
-          </Grid>
-        
+          </Grid> 
           <Grid item xs>
             <Chat selectedChat = {selectedChat} socket = {socket}/>
           </Grid>
- 
         </Grid>
     {/* <Chat selectedChat = {selectedChat} socket = {socket}/> */}
-    </Container>  
+    {/* </Container>   */}
+    </Box>
 )
 
 }
