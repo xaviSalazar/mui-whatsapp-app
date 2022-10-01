@@ -109,7 +109,15 @@ export default function AddContact({setContactToggle, contactToggle, handleOnCha
             autoComplete=""
             variant="standard"
           /> */}
-        <MuiPhoneNumber defaultCountry='ec' onChange={handleOnChangeNumber}/>
+        <MuiPhoneNumber 
+            required
+            id="Celular"
+            name="Celular"
+            label="Numero de Celular"
+            defaultCountry='ec' 
+            onChange={handleAddFormChange}
+        />
+
         </Grid>
         <Grid item xs={12}>
           <TextField

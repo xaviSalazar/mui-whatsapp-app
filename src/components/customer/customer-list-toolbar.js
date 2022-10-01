@@ -28,15 +28,21 @@ import {
     });
 
     const handleAddFormChange = (event) => {
-
-      event.preventDefault();    
+ 
+      if(event.target) {
       const fieldName = event.target.name
       const fieldValue = event.target.value;
   
       const newFormData = { ...addFormData };
       newFormData[fieldName] = fieldValue;
   
+      console.log(newFormData)
       setAddFormData(newFormData);
+      } else {
+        const newFormData = { ...addFormData };
+        newFormData['Celular'] = event;
+        setAddFormData(newFormData);
+      }
     };
 
     return (
