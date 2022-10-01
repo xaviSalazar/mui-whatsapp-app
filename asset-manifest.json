@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/mui-whatsapp-app/static/css/main.ab8ff8f0.css",
-    "main.js": "/mui-whatsapp-app/static/js/main.b96da6b3.js",
+    "main.css": "/mui-whatsapp-app/static/css/main.72c22e91.css",
+    "main.js": "/mui-whatsapp-app/static/js/main.7fd1a2b3.js",
     "static/js/787.9b06cee2.chunk.js": "/mui-whatsapp-app/static/js/787.9b06cee2.chunk.js",
     "index.html": "/mui-whatsapp-app/index.html",
-    "main.ab8ff8f0.css.map": "/mui-whatsapp-app/static/css/main.ab8ff8f0.css.map",
-    "main.b96da6b3.js.map": "/mui-whatsapp-app/static/js/main.b96da6b3.js.map",
+    "main.72c22e91.css.map": "/mui-whatsapp-app/static/css/main.72c22e91.css.map",
+    "main.7fd1a2b3.js.map": "/mui-whatsapp-app/static/js/main.7fd1a2b3.js.map",
     "787.9b06cee2.chunk.js.map": "/mui-whatsapp-app/static/js/787.9b06cee2.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.ab8ff8f0.css",
-    "static/js/main.b96da6b3.js"
+    "static/css/main.72c22e91.css",
+    "static/js/main.7fd1a2b3.js"
   ]
 }
