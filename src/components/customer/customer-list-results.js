@@ -48,9 +48,7 @@ useEffect(() => {
       'Celular': item.phoneNumber,
       'Direccion': item.address,
       'Notas': item.notes,
-      '__rowNum__': item.__rowNum__,
       '_id': item._id,
-      'isChecked': false
       }
   });
 
@@ -63,7 +61,8 @@ useEffect(() => {
   const handleSelectAll = (event) => {
     let newSelectedCustomerIds;
     if (event.target.checked) {
-      newSelectedCustomerIds = customers.map((customer) => customer._id);
+      // newSelectedCustomerIds = customers.map((customer) => customer._id);
+      newSelectedCustomerIds = customers
     } else {
       newSelectedCustomerIds = [];
     }
@@ -72,12 +71,13 @@ useEffect(() => {
   };
 
   // handle select single customer
-  const handleSelectOne = (event, _id) => {
-    const selectedIndex = selectedCustomerIds.indexOf(_id);
+  const handleSelectOne = (event, customer) => {
+    const selectedIndex = selectedCustomerIds.map(customer => customer._id).indexOf(customer._id);
+    console.log(selectedIndex)
     let newSelectedCustomerIds = [];
 
     if (selectedIndex === -1) {
-      newSelectedCustomerIds = newSelectedCustomerIds.concat(selectedCustomerIds, _id);
+      newSelectedCustomerIds = newSelectedCustomerIds.concat(selectedCustomerIds, customer);
     } else if (selectedIndex === 0) {
       newSelectedCustomerIds = newSelectedCustomerIds.concat(selectedCustomerIds.slice(1));
     } else if (selectedIndex === selectedCustomerIds.length - 1) {
@@ -151,8 +151,9 @@ useEffect(() => {
                 >
                   <TableCell padding="checkbox">
                     <Checkbox
-                      checked={selectedCustomerIds.indexOf(customer._id) !== -1}
-                      onChange={(event) => handleSelectOne(event, customer._id)}
+                      checked = {selectedCustomerIds.map(customer => customer._id).indexOf(customer._id) !== -1}
+                      // checked={selectedCustomerIds.indexOf(customer._id) !== -1}
+                      onChange={(event) => handleSelectOne(event, customer)}
                       value="true"
                     />
                   </TableCell>
