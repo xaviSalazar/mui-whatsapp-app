@@ -1,7 +1,7 @@
 
 import { Box, Container, Typography } from '@mui/material';
 import { SettingsNotifications } from '../components/settings/settings-notifications';
-import { SettingsPassword } from '../components/settings/settings-password';
+import { SettingsTokens } from '../components/settings/settings-tokens';
 
 const Settings = () => (
   <>
@@ -19,9 +19,9 @@ const Settings = () => (
         >
           Settings
         </Typography>
-        <SettingsNotifications />
+        {/* <SettingsNotifications /> */}
         <Box sx={{ pt: 3 }}>
-          <SettingsPassword />
+          <SettingsTokens />
         </Box>
       </Container>
     </Box>
