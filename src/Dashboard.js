@@ -29,6 +29,10 @@ import {doCustomerAuth} from './redux/Authentification/Actions'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import {useEffect} from 'react'
+import Customers from './pages/Customers'
+import Settings from './pages/Settings'
+import PersonAddIcon from '@mui/icons-material/PersonAdd';
+import SettingsIcon from '@mui/icons-material/Settings';
 
 // function Copyright(props) {
 //   return (
@@ -96,6 +100,10 @@ const handleClick = (component_name, setActiveWindow) => {
         setActiveWindow(component_name)
     } else if (component_name === "Messaging-page") {
         setActiveWindow(component_name)
+    } else if (component_name === "Customers-page") {
+      setActiveWindow(component_name)
+    } else if (component_name === "Settings-page") {
+      setActiveWindow(component_name)
     }
 }
 
@@ -153,7 +161,7 @@ function DashboardContent() {
               noWrap
               sx={{ flexGrow: 1 }}
             >
-              Dashboard
+              {activeWindow}
             </Typography>
             <IconButton color="inherit">
               <Badge badgeContent={4} color="secondary">
@@ -199,6 +207,20 @@ function DashboardContent() {
             </ListItemIcon>
             <ListItemText primary="Messages" />
             </ListItemButton>
+
+            <ListItemButton onClick={(e) => handleClick("Customers-page", setActiveWindow)}>
+            <ListItemIcon>
+                <PersonAddIcon />
+            </ListItemIcon>
+            <ListItemText primary="Customers" />
+            </ListItemButton>
+
+            <ListItemButton onClick={(e) => handleClick("Settings-page", setActiveWindow)}>
+            <ListItemIcon>
+                <SettingsIcon />
+            </ListItemIcon>
+            <ListItemText primary="Settings" />
+            </ListItemButton>
         </React.Fragment>
 
           </List>
@@ -210,6 +232,8 @@ function DashboardContent() {
         {/* PAGES I WANT TO CHOOSE GOES HERE */}
           {activeWindow === "Dashboard" && <Summary />}
           {activeWindow === "Messaging-page" && <MessagingPage socket={socket}/>}
+          {activeWindow === "Customers-page" && <Customers/>}
+          {activeWindow === "Settings-page" && <Settings/>}
 
         
       </Box>
