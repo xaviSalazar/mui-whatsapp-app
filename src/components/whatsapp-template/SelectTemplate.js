@@ -85,7 +85,6 @@ const SelectTemplate = ({initConvTemplate, setInitConvTemplate}) => {
             const templ = await httpManager.getWhatsappTemplates(auth?.data?.responseData?._id)
             const loaded_templates = templ.data.responseData.data.filter(item => item.status === 'APPROVED').map(item => item)
             setTemplates(loaded_templates)
-            console.log(loaded_templates)
         }
 
         

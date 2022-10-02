@@ -13,10 +13,13 @@ import {
   TableHead,
   TablePagination,
   TableRow,
-  Typography
+  Typography,
+  Button
 } from '@mui/material';
 import { getInitials } from '../../utils/get-initials';
 import SelectTemplate from '../whatsapp-template/SelectTemplate'
+import ConfirmDialog from '../../utils/confirm-dialog'
+import SendIcon from '@mui/icons-material/Send';
 
 // template initial state
 // Note: Do not put unnecessary elements in components
@@ -34,7 +37,6 @@ const initialState = {
   }
 }
 
-
 export const CustomerListResults = ({ setExcelContacts, ...rest }) => {
 
   const [selectedCustomerIds, setSelectedCustomerIds] = useState([]);
@@ -44,8 +46,10 @@ export const CustomerListResults = ({ setExcelContacts, ...rest }) => {
   const [customers, setCustomers] = useState([])
   const contactsList = useSelector((state) => state.getUsers)
   const [initConvTemplate, setInitConvTemplate] = useState(initialState);
+  const [modalToggle, setModalToggle] = useState(false);
   let auth = useSelector(state => state.customerReducer.auth)
   // to retrieve all my users 
+  console.log(initConvTemplate)
   useEffect(() => {
     dispatch(getUsers(auth?.data?.responseData?._id))
 }, [dispatch, auth?.data?.responseData?._id])
@@ -80,8 +84,6 @@ useEffect(() => {
       }
   });
 
-
-  console.log(newTranslation)
   setCustomers(newTranslation)
   setExcelContacts(newExcelContact)
 
@@ -130,9 +132,28 @@ useEffect(() => {
     setPage(newPage);
   };
 
+  const handleClose = () => {
+    setModalToggle(!modalToggle)
+  };
 
+  const handleConfirm = () => {
+    console.log(`sending messageses`)
+    setModalToggle(!modalToggle)
+  }
+ 
   return (
     <Card {...rest}>
+
+          <Button
+            color="primary"
+            variant="contained"
+            onClick = { () => setModalToggle(!modalToggle)}
+            endIcon={<SendIcon />}
+          >
+            ENVIAR MENSAJE
+          </Button>
+
+        <ConfirmDialog open = {modalToggle} handleClose = {handleClose} handleConfirm = {handleConfirm}/>
       <PerfectScrollbar>
         <SelectTemplate initConvTemplate={initConvTemplate} setInitConvTemplate={setInitConvTemplate}/>
         <Box sx={{ minWidth: 1050 }}>
