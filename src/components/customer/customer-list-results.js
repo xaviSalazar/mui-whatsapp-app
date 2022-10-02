@@ -1,8 +1,6 @@
 import { useState, useEffect } from 'react';
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import { useDispatch, useSelector } from 'react-redux';
-import PropTypes from 'prop-types';
-import { format } from 'date-fns';
 import { getUsers } from '../../redux/GetUsers/UsersAction'
 import {
   Avatar,
@@ -18,18 +16,17 @@ import {
   Typography
 } from '@mui/material';
 import { getInitials } from '../../utils/get-initials';
+import SelectTemplate from '../whatsapp-template/SelectTemplate'
 
 export const CustomerListResults = ({  ...rest }) => {
+
   const [selectedCustomerIds, setSelectedCustomerIds] = useState([]);
   const [limit, setLimit] = useState(5);
   const [page, setPage] = useState(0);
   const dispatch = useDispatch();
   const [customers, setCustomers] = useState([])
-  const contactsList = useSelector((state) => state.getUsers);
+  const contactsList = useSelector((state) => state.getUsers)
   let auth = useSelector(state => state.customerReducer.auth)
-
-  console.log(selectedCustomerIds)
-
   // to retrieve all my users 
   useEffect(() => {
     dispatch(getUsers(auth?.data?.responseData?._id))
@@ -39,6 +36,7 @@ export const CustomerListResults = ({  ...rest }) => {
 useEffect(() => {
     
   const newTranslation = contactsList.map(item => {
+    
     return {
       'Asunto': item.asunto,
       'Apellidos': item.lastname,
@@ -104,6 +102,7 @@ useEffect(() => {
   return (
     <Card {...rest}>
       <PerfectScrollbar>
+        <SelectTemplate />
         <Box sx={{ minWidth: 1050 }}>
           <Table>
             <TableHead>
@@ -217,6 +216,6 @@ useEffect(() => {
   );
 };
 
-CustomerListResults.propTypes = {
-  customers: PropTypes.array.isRequired
-};
+// CustomerListResults.propTypes = {
+//   customers: PropTypes.array.isRequired
+// };
