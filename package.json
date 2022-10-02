@@ -19,6 +19,7 @@
     "axios": "^0.27.2",
     "crypto-js": "^4.1.1",
     "date-fns": "^2.29.3",
+    "file-saver": "^2.0.5",
     "gh-pages": "^4.0.0",
     "material-ui-phone-number": "^3.0.0",
     "prop-types": "^15.8.1",

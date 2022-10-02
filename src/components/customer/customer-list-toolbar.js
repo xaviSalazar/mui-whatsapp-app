@@ -15,8 +15,9 @@ import {
   import { useSelector } from "react-redux";
   import {createUser } from '../../api'
   import { ImportCSV } from './importCSV';
+  import { ExportCSV } from './ExportCSV';
   
-   const CustomerListToolbar = (props) => {
+   const CustomerListToolbar = ({excelContacts}) => {
 
     const [contactToggle, setContactToggle] = useState(false);
     const hiddenFileInput = React.useRef(null);
@@ -31,6 +32,7 @@ import {
       Direccion: "",
       Notas: "",
     });
+
 
     const handleAddFormChange = (event) => {
  
@@ -73,7 +75,7 @@ import {
     };
 
     return (
-    <Box {...props}>
+    <Box >
       <Box
         sx={{
           alignItems: 'center',
@@ -97,13 +99,14 @@ import {
           >
             Importar Excel
             <ImportCSV hiddenFileInput = {hiddenFileInput} />
-          </Button>
-          <Button
+          </Button>  
+          <ExportCSV contacts={excelContacts} fileName="Exported Contacts"/>
+          {/* <Button
             startIcon={(<DownloadIcon fontSize="small" />)}
             sx={{ mr: 1 }}
           >
             Exportar Excel
-          </Button>
+          </Button> */}
           <Button
             color="primary"
             variant="contained"

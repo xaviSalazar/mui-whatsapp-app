@@ -18,7 +18,7 @@ import {
 import { getInitials } from '../../utils/get-initials';
 import SelectTemplate from '../whatsapp-template/SelectTemplate'
 
-export const CustomerListResults = ({  ...rest }) => {
+export const CustomerListResults = ({ setExcelContacts, ...rest }) => {
 
   const [selectedCustomerIds, setSelectedCustomerIds] = useState([]);
   const [limit, setLimit] = useState(5);
@@ -36,7 +36,6 @@ export const CustomerListResults = ({  ...rest }) => {
 useEffect(() => {
     
   const newTranslation = contactsList.map(item => {
-    
     return {
       'Asunto': item.asunto,
       'Apellidos': item.lastname,
@@ -50,8 +49,23 @@ useEffect(() => {
       }
   });
 
+  const newExcelContact = contactsList.map(item => {
+    return {
+      'Asunto': item.asunto,
+      'Apellidos': item.lastname,
+      'Nombres': item.name,
+      'Lugar de Trabajo': item.workplace,
+      'Email': item.email,
+      'Celular': item.phoneNumber,
+      'Direccion': item.address,
+      'Notas': item.notes,
+      }
+  });
+
+
   console.log(newTranslation)
   setCustomers(newTranslation)
+  setExcelContacts(newExcelContact)
 
 }, [contactsList])
 
