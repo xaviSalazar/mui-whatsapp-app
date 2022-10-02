@@ -13,6 +13,11 @@
 	max-width: 300px;
 }
 
+.template__edit {
+	flex-direction: column;
+	max-width: 400px;
+}
+
 ._6xe3 {
     background-color: #fff;
     border-radius: 7.5px;

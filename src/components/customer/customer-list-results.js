@@ -18,6 +18,23 @@ import {
 import { getInitials } from '../../utils/get-initials';
 import SelectTemplate from '../whatsapp-template/SelectTemplate'
 
+// template initial state
+// Note: Do not put unnecessary elements in components
+const initialState = {
+  messaging_product: "whatsapp",
+  recipient_type: "individual",
+  to: "PHONE_NUMBER",
+  type: "template",
+  template: {
+    name: "TEMPLATE_NAME",
+    language: {
+      code: "LANGUAGE_AND_LOCALE_CODE"
+    },
+  components: []
+  }
+}
+
+
 export const CustomerListResults = ({ setExcelContacts, ...rest }) => {
 
   const [selectedCustomerIds, setSelectedCustomerIds] = useState([]);
@@ -26,6 +43,7 @@ export const CustomerListResults = ({ setExcelContacts, ...rest }) => {
   const dispatch = useDispatch();
   const [customers, setCustomers] = useState([])
   const contactsList = useSelector((state) => state.getUsers)
+  const [initConvTemplate, setInitConvTemplate] = useState(initialState);
   let auth = useSelector(state => state.customerReducer.auth)
   // to retrieve all my users 
   useEffect(() => {
@@ -116,7 +134,7 @@ useEffect(() => {
   return (
     <Card {...rest}>
       <PerfectScrollbar>
-        <SelectTemplate />
+        <SelectTemplate initConvTemplate={initConvTemplate} setInitConvTemplate={setInitConvTemplate}/>
         <Box sx={{ minWidth: 1050 }}>
           <Table>
             <TableHead>
